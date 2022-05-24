@@ -1,0 +1,12 @@
+
+Realtime signal và standard signal là gì? Phân biệt sự khác nhau giữa chúng
+- standard signal là soft interrupt là cơ chế xử lý các sự kiện bất đồng bộ, là 32 cái sig đầu tiên trong kill -l 
+- Các standard signal ko được xếp hàng, Nếu như 1 signal A  đang bị block mà lại có nhiều signal A được tạo ra thì 
+chỉ có 1 tín hiệu dược đánh dấu trong hàng đợi và signal đó được chuyển đến process sau khi unblock 
+
+_ Real time signal được gth bởi POSIX và giá trị của các signal nằm ở phạm vi 32 đến 64. Tuy nhiên phạm vi của các signal này sẽ bị thay 
+đổi theo từng hệ thống unix khác nhau   do đó thay vì sư dụng các số fix cứng thì dùng SIGRTMIN+n.
+- trong hệ thống thì ko có sự ưu tiện giữa 2 cái signal này nhưng nhìn chung thì thằng standard có độ ưu tiên hơn 
+- MỘt process có thể xử lý nhiều Realtime signal giống nhau nhưng standard signal thì không được nó chỉ xử lý 1 tín hiệu 
+- khi một Realtime signal được gửi bằng sigqueue nó có thể chuyển kèm theo data
+- mặc định thì handler của các Realtime signal là kết thúc cái tiến trình hiện tại nhưng standard signal thì không.
